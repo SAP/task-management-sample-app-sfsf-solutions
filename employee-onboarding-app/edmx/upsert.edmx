@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:atom="http://www.w3.org/2005/Atom">
+    <edmx:DataServices m:DataServiceVersion="2.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="SFODataSet" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sf="http://www.successfactors.com/edm/sf" xmlns:sap="http://www.successfactors.com/edm/sap">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="UpsertResult" EntityType="SFOData.UpsertResult" sap:label="UpsertResult" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"></EntitySet>
+                <FunctionImport Name="upsert" ReturnType="Collection(SFOData.UpsertResult)" EntitySet="UpsertResult" m:HttpMethod="POST" sap:support-payload="true">
+                </FunctionImport>
+            </EntityContainer>
+        </Schema>
+        <Schema Namespace="SFOData" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sf="http://www.successfactors.com/edm/sf" xmlns:sap="http://www.successfactors.com/edm/sap">
+            <EntityType Name="UpsertResult">
+                <Key>
+                    <PropertyRef Name="key"></PropertyRef>
+                </Key>
+                <Property Name="editStatus" Type="Edm.String" Nullable="false" sap:label="editStatus"></Property>
+                <Property Name="httpCode" Type="Edm.Int32" Nullable="false" sap:label="httpCode"></Property>
+                <Property Name="index" Type="Edm.Int32" Nullable="true" sap:label="index"></Property>
+                <Property Name="key" Type="Edm.String" Nullable="false" sap:label="key"></Property>
+                <Property Name="message" Type="Edm.String" Nullable="true" sap:label="message"></Property>
+                <Property Name="status" Type="Edm.String" Nullable="false" sap:label="status"></Property>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

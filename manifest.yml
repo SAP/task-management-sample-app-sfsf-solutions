@@ -1,0 +1,34 @@
+---
+applications:
+# The sample application.
+- name: employee-onboarding
+  instances: 1
+  memory: 896M
+  buildpacks: 
+    - java_buildpack
+  routes:
+    - route: employee-onboarding-dkom((ID)).((LANDSCAPE_APPS_DOMAIN))
+  path: employee-onboarding-app/target/employee-onboarding-app.jar
+  services:
+    - xsuaa
+    - destination
+    - sap-successfactors-extensibility
+
+# Application Router as web server
+- name: approuter-employee-onboarding
+  path: approuter
+  buildpacks: 
+    - nodejs_buildpack
+  memory: 128M
+  routes:
+    - route: employee-onboarding-web-dkom((ID)).((LANDSCAPE_APPS_DOMAIN))
+  services:
+    - xsuaa
+  env:
+    destinations: >
+      [
+        {"name":"token-destination",
+         "url":"https://employee-onboarding-dkom((ID)).((LANDSCAPE_APPS_DOMAIN))",
+         "forwardAuthToken": true}
+      ]
+

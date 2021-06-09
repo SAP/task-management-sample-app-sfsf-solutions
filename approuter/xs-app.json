@@ -1,0 +1,12 @@
+
+{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "source": "/",
+      "target": "/",
+      "csrfProtection": false,
+      "destination": "token-destination"
+    }
+  ]
+}
