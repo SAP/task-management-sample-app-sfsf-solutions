@@ -50,7 +50,7 @@ See [Configure the Entitlements for the Subaccount in SAP BTP](https://help.sap.
 1. To clone the GitHub repository, use this command:
 
       ```
-      git clone https://github.wdf.sap.corp/i323283/sfsf-cloud-ext-employee-onboarding
+      git clone https://github.com/SAP/task-management-sample-app-sfsf-solutions
       ```
 
 2. In the root of the project, there's a file called `sap-successfactors-extensibility.json` which contains the name of the SAP SuccessFactors system which you'll connect to. You need to replace the value of the **"systemName"** parameter with the name of the SAP SuccessFactors system you registered in **step 1. Connect the SAP SuccessFactors system you want to extend with the corresponding global account in SAP BTP**. 
