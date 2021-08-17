@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Task Management Sample Application for SAP SuccessFactors Solutions
 Upstream-Contact: Tsvetislav Viktorov <tsvetislav.viktorov@sap.com>
-Source: https://github.com/SAP/sfsf-cloud-ext-employee-onboarding
+Source: https://github.com/SAP/task-management-sample-app-sfsf-solutions
 Disclaimer: The code in this project may include calls to APIs (“API Calls”) of
  SAP or third-party products or services developed outside of this project
  (“External Products”).
