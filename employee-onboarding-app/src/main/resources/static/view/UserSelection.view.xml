@@ -1,8 +1,0 @@
-<!DOCTYPE xml>
-<mvc:View xmlns='sap.m' xmlns:mvc="sap.ui.core.mvc" controllerName="ext.samples.employeeonboarding.controller.UserSelection">
-	<ResponsivePopover id="selectionPopover" placement="Bottom" title="{i18n>selectionListTitle}">
-		<List items="{userSelection>/users}">
-			<StandardListItem title="{userSelection>defaultFullName}" description="{userSelection>title}" type="Active" press="createRequest" />
-		</List>
-	</ResponsivePopover>
-</mvc:View>

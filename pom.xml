@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>com.sap.core.extensions</groupId>
-	<artifactId>employee-onboarding-parent</artifactId>
+	<artifactId>task-management-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>employee-onboarding-parent</name>
+	<name>task-management-parent</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +22,7 @@
 	</properties>
 
 	<modules>
-		<module>employee-onboarding-app</module>
+		<module>task-management-app</module>
 	</modules>
 
 	<dependencyManagement>
@@ -30,7 +30,7 @@
 			<dependency>
 				<groupId>com.sap.cloud.sdk</groupId>
 				<artifactId>sdk-bom</artifactId>
-				<version>3.45.0</version>
+				<version>3.46.0</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

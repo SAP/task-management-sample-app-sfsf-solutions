@@ -1,9 +1,0 @@
----
-# Setting Log Levels          
-logging.level:
-  com.sap: INFO                   
-  com.sap.cloud.sdk: INFO               
-  org.springframework.web: ERROR     
-  org.apache.http.wire: ERROR
-  log4j.category.org.apache.http.wire: ERROR
-
