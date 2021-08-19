@@ -1,6 +1,6 @@
 <!DOCTYPE xml>
 <mvc:View xmlns='sap.m' xmlns:mvc="sap.ui.core.mvc" controllerName="ext.samples.taskmanagement.controller.UserDetails">
-	<ResponsivePopover id="detailsPopover" placement="VerticalPreferredBottom" title="Employee Details">
+	<ResponsivePopover id="detailsPopover" placement="VerticalPreferredBottom" contentWidth="25rem" title="Employee Details" beforeOpen="fetchEmployeeDetails">
 		<VBox class="sapUiSmallMargin">
 			<HBox class="sapUiSmallMarginBottom" justifyContent="Center">
 				<Avatar displaySize="L" src="{details>/employeePhoto}" />

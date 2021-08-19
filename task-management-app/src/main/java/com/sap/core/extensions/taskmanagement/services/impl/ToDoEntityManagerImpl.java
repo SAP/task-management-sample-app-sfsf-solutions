@@ -108,7 +108,7 @@ class ToDoEntityManagerImpl implements ToDoEntityManager {
 			throw new IllegalArgumentException("User: [" + user + "] is not valid");
 		}
 		TodoEntryV2 toDoEntry = createToDo(userInfo.getName(), user.getDefaultFullName(), user.getUserId());
-		return createEmployeeOnboardRequestDTO(toDoEntry, user);
+		return createEmployeeOnboardRequestDTO(toDoEntry, null);
 	}
 
 	private TodoEntryV2 createToDo(String targetUser, String userName, String userId) {

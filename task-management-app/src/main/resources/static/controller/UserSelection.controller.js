@@ -9,26 +9,45 @@ sap.ui.define([
 	return Controller.extend("ext.samples.taskmanagement.controller.UserSelection", {
 
 		onInit: function () {
+			this.getView().setModel(new JSONModel(), "userSelection");
+
 			sap.ui.getCore().getEventBus().subscribe("ext.samples.taskmanagement", "requestsLoaded", this.fetchUsers, this);
 			sap.ui.getCore().getEventBus().subscribe("ext.samples.taskmanagement", "requestDeleted", this.addUser, this);
 		},
 
-		addUser: function(chanel, event, eventData) {
-			var users = this.getView().getModel("userSelection").getProperty("/users");
-			var shallowUsersCopy = users.concat([]);
-			shallowUsersCopy.push(eventData);
-			this.getView().getModel("userSelection").setProperty("/users", shallowUsersCopy);
+		addUser: function(chanel, event, userId) {
+			function addUserToModel(data) {
+				var userSelectionModel = this.getView().getModel("userSelection");
+				var users = userSelectionModel.getProperty("/users");
+				var shallowUsersCopy = users.concat([]);
+				shallowUsersCopy.push(data);
+				userSelectionModel.setProperty("/users", shallowUsersCopy);
+			};
+
+			function showGetDetailsError() {
+				var messageBundle = this.getView().getModel("i18n").getResourceBundle();
+				MessageBox.error(messageBundle.getText("couldNotGetEmployeeDetailsError"));
+			}
+
+			jQuery.ajax({
+				method: "GET",
+				url: Config.serviceUrl + "/users/" + userId,
+				context: this,
+				beforeSend: this.showBusy("selectionPopover")
+			}).done(addUserToModel)
+			.fail(showGetDetailsError)
+			.always(this.hideBusy("selectionPopover"));
 		},
 		
 		fetchUsers: function (chanel, event, eventData) {
-			function setUsersModel(data) {
+			function fillUsersModel(data) {
 				var nonOnboardedUsers = data.users.filter(function (u) {
 					return eventData.onboardRequests.every(function (r) {
-						return r.user.userId !== u.userId;
+						return r.toDoEntryV2.subjectId !== u.userId;
 					}); 
 				});
 				data.users = nonOnboardedUsers;
-				this.getView().setModel(new JSONModel(data), "userSelection");
+				this.getView().getModel("userSelection").setData(data);
 			};
 
 			function showUserFetchError() {
@@ -41,7 +60,7 @@ sap.ui.define([
 				url: Config.serviceUrl + "/users",
 				context: this,
 				beforeSend: this.showBusy("selectionPopover")
-			}).done(setUsersModel)
+			}).done(fillUsersModel)
 				.fail(showUserFetchError)
 				.always(this.hideBusy("selectionPopover"));	
 		},
@@ -65,7 +84,7 @@ sap.ui.define([
 				var usersModel = this.getView().getModel("userSelection");
 				var users = usersModel.getProperty("/users");
 				var filteredUsers = users.filter(function (u) {
-					return u.userId !== data.user.userId;
+					return u.userId !== data.toDoEntryV2.subjectId;
 				});
 				usersModel.setProperty("/users", filteredUsers);
 

@@ -26,27 +26,6 @@ sap.ui.define([
 				var shallowRequestsCopy = requests.concat([]);
 				shallowRequestsCopy.push(eventData);
 				requestsModel.setProperty("/onboardRequests", shallowRequestsCopy);
-				
-				function setUserPhotoInModel(data) {
-					var reqs = requestsModel.getProperty("/onboardRequests");
-					reqs.forEach(function (r, i) {
-						if(r.user.userId === eventData.user.userId) {
-							requestsModel.setProperty("/onboardRequests/" + i + "/user/photo", data);
-						}
-					});
-				};
-	
-				function showGetUserPhotoError() {
-					var messageBundle = this.getView().getModel("i18n").getResourceBundle();
-					MessageBox.error(messageBundle.getText("couldNotGetUserPhotoError"));
-				}
-
-				jQuery.ajax({
-					method: "GET",
-					url: Config.serviceUrl + "/users/" + eventData.user.userId + "/photo",
-					context: this
-				}).done(setUserPhotoInModel)
-					.fail(showGetUserPhotoError);
 			}, this);
 		},
 
@@ -113,11 +92,7 @@ sap.ui.define([
 			var detailsView = this.byId('detailsView');
 
 			detailsView.getModel("details").setData({
-				employeePhoto: "data:image/jpeg;base64," + bindingContext.getProperty("user/photo/base64Encoded"),
-				employeeName: bindingContext.getProperty("user/defaultFullName"),
-				employeeTitle: bindingContext.getProperty("user/title"),
-				employeeEmail: bindingContext.getProperty("user/email"),
-				employeeDepartment: bindingContext.getProperty("user/department")
+				employeeId: bindingContext.getProperty("toDoEntryV2/subjectId"),
 			});
 
 			detailsView.byId('detailsPopover').openBy(evt.getSource());
@@ -127,15 +102,15 @@ sap.ui.define([
 			var listItem = evt.getSource();
 			var bindingContext = listItem.getBindingContext("requests");
 			var requestId = bindingContext.getProperty("toDoEntryV2/toDoEntryId");
-			var user = bindingContext.getProperty("user");
-			var userFullName = bindingContext.getProperty("user/defaultFullName");
+			var requestName = bindingContext.getProperty("toDoEntryV2/toDoEntryName");
+			var userId = bindingContext.getProperty("toDoEntryV2/subjectId");
 
 			var resourceBundle = this.getView().getModel("i18n").getResourceBundle();
-			var confirmationMessage = resourceBundle.getText("deleteRequestConfirmation", [userFullName]);
-			MessageBox.confirm(confirmationMessage, this.submitRequestDeletion.bind(this, requestId, user));
+			var confirmationMessage = resourceBundle.getText("deleteRequestConfirmation", [requestName]);
+			MessageBox.confirm(confirmationMessage, this.submitRequestDeletion.bind(this, requestId, userId));
 		},
 
-		submitRequestDeletion: function (requestId, user, oAction) {
+		submitRequestDeletion: function (requestId, userId, oAction) {
 			if(oAction !== MessageBox.Action.OK) {
 				return;
 			}
@@ -158,7 +133,7 @@ sap.ui.define([
 				});
 				requestsModel.setProperty("/onboardRequests", newRequests);
 
-				sap.ui.getCore().getEventBus().publish("ext.samples.taskmanagement", "requestDeleted", user);
+				sap.ui.getCore().getEventBus().publish("ext.samples.taskmanagement", "requestDeleted", userId);
 			}
 
 			jQuery.ajax({
@@ -175,10 +150,10 @@ sap.ui.define([
 			var listItem = evt.getSource();
 			var bindingContext = listItem.getBindingContext("requests");
 			var requestId = bindingContext.getProperty("toDoEntryV2/toDoEntryId");
-			var userFullName = bindingContext.getProperty("user/defaultFullName");
+			var requestName = bindingContext.getProperty("toDoEntryV2/toDoEntryName");
 
 			var resourceBundle = this.getView().getModel("i18n").getResourceBundle();
-			var confirmationMessage = resourceBundle.getText("completeRequestConfirmation", [userFullName]);
+			var confirmationMessage = resourceBundle.getText("completeRequestConfirmation", [requestName]);
 			MessageBox.confirm(confirmationMessage, this.submitRequestCompletion.bind(this, requestId));
 		},
 

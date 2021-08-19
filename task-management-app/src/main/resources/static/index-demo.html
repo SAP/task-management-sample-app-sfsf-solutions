@@ -105,10 +105,10 @@
 					return {
 						"toDoEntryV2": {
 							"toDoEntryId": jQuery.sap.uid(),
-							"toDoEntryName": "Onboard " + u.defaultFullName,
-							"status": i % 2 === 0 ? 3 : 2
-						},
-						"user": u
+							"toDoEntryName": u.defaultFullName + " (" + u.userId + ")",
+							"status": i % 2 === 0 ? 3 : 2,
+							"subjectId": u.userId
+						}
 					};
 				});
 
@@ -138,13 +138,14 @@
 					},
 					{
 						method: "GET",
-						path: Config.serviceUrl + "/users/:1/photo",
+						path: Config.serviceUrl + "/users/(?!current)([^/]+)",
 						response: function (xhr, userId) {
-							var base64EncodedPhoto = users.filter(function (u) {
+							var user = users.filter(function (u) {
 								return u.userId === userId;
-							})[0].photo.base64Encoded;
+							})[0];
+							var deepUserCopy = JSON.parse(JSON.stringify(user));
 
-							return xhr.respondJSON(200, {}, {"base64Encoded": base64EncodedPhoto});
+							return xhr.respondJSON(200, {}, deepUserCopy);
 						}
 					},
 					{
@@ -162,15 +163,13 @@
 							var user = users.filter(function (u) {
 								return u.userId === payload.user.userId;
 							})[0];
-							var deepUserCopy = JSON.parse(JSON.stringify(user));
-							delete deepUserCopy.photo;
 							var onboardRequest = {
 								"toDoEntryV2": {
 									"toDoEntryId": jQuery.sap.uid(),
-									"toDoEntryName": "Onboard " + deepUserCopy.defaultFullName,
-									"status": 2
-								},
-								"user": deepUserCopy
+									"toDoEntryName": user.defaultFullName + " (" + user.userId + ")",
+									"status": 2,
+									"subjectId": user.userId
+								}
 							}
 
 							onboardRequests.push(onboardRequest);
@@ -180,7 +179,7 @@
 					},
 					{
 						method: "PATCH",
-						path: Config.serviceUrl + "/onboardings/:1/complete",
+						path: Config.serviceUrl + "/onboardings/([^/]+)/complete",
 						response: function (xhr, toDoId) {
 							onboardRequests.forEach(function (r) {
 								if(r.toDoEntryV2.toDoEntryId === toDoId) {
@@ -192,7 +191,7 @@
 					},
 					{
 						method: "DELETE",
-						path: Config.serviceUrl + "/onboardings/:1",
+						path: Config.serviceUrl + "/onboardings/([^/]+)",
 						response: function (xhr, toDoId) {
 							onboardRequests = onboardRequests.filter(function (r) {
 								return r.toDoEntryV2.toDoEntryId !== toDoId;

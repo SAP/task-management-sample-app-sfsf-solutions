@@ -18,6 +18,9 @@ target/
 # Visual Studio Code
 .vscode/
 
+# Bin folder
+bin/
+
 # Generated resources
 serviceNameMappings.properties
 */.factorypath

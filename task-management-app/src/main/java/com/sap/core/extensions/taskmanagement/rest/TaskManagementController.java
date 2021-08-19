@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sap.core.extensions.taskmanagement.dto.TaskRequestDTO;
 import com.sap.core.extensions.taskmanagement.dto.TaskRequestsDTO;
 import com.sap.core.extensions.taskmanagement.dto.ToDoEntryV2DTO;
-import com.sap.core.extensions.taskmanagement.dto.UserDTO;
 import com.sap.core.extensions.taskmanagement.services.ToDoEntityManager;
-import com.sap.core.extensions.taskmanagement.services.UserManager;
 
 @RestController
 @RequestMapping("/v1/onboardings")
@@ -28,11 +26,9 @@ public class TaskManagementController {
 	private static final String TO_DO_NAME_PATTERN = "([\\w\\s-]{1,32})\\s(\\([\\w-]{1,32}\\))";
 
 	private final ToDoEntityManager toDoEntityManager;
-	private final UserManager userManager;
 
-	public TaskManagementController(ToDoEntityManager toDoEntityManager, UserManager userManager) {
+	public TaskManagementController(ToDoEntityManager toDoEntityManager) {
 		this.toDoEntityManager = toDoEntityManager;
-		this.userManager = userManager;
 	}
 
 	@GetMapping
@@ -69,15 +65,7 @@ public class TaskManagementController {
 	}
 
 	private TaskRequestDTO createTaskDTO(ToDoEntryV2DTO toDoEntryV2DTO) {
-		UserDTO userProfile = userManager.getUserProfile(extractUserIdFromToDoEntryName(toDoEntryV2DTO));
-
-		return new TaskRequestDTO(toDoEntryV2DTO, userProfile);
-	}
-
-	private String extractUserIdFromToDoEntryName(ToDoEntryV2DTO toDoEntryV2DTO) {
-		String toDoName = toDoEntryV2DTO.getToDoEntryName();
-
-		return toDoName.substring(toDoName.indexOf('(') + 1, toDoName.lastIndexOf(')'));
+		return new TaskRequestDTO(toDoEntryV2DTO, null);
 	}
 
 }
