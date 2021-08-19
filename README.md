@@ -160,7 +160,7 @@ git clone https://github.com/SAP/task-management-sample-app-sfsf-solutions
 
   - `ID`. Enter your user in SAP BTP. It is either an S-user, a P-user, or a trial user.
 
-  - `LANDSCAPE_APPS_DOMAIN`. Enter **`cfapps.eu10.hana.ondemand.com`** which represents the `cfapps.<region_host>`. To check the `<region_host>`, go to the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the **Cloud Foundry** section, and remove the `https://api.cf.`
+  - `LANDSCAPE_APPS_DOMAIN`. Enter **`eu10.hana.ondemand.com`** which represents the `<region_host>`. To check the `<region_host>`, go to the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the **Cloud Foundry** section, and remove the `https://api.cf.`
 
 4. Open a console and navegate to the root folder of the project that is created on you local file system after cloning the GitHub repository.
 
