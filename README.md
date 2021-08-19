@@ -88,7 +88,7 @@ To do that, you must register your SAP SuccessFactors system in your global acco
 
     Wait for the integration to finish. You can check the status of the process with the **Check Status** button next to your system name.
 
-11. In the SAP BTP cockpit, check the status of the registration process. To do so, navigate to your global account, and on the **Systems** page, check if the status of the SAP System has changed to **Registered**.
+11. In the SAP BTP cockpit, check the status of the registration process. To do so, navigate to your global account, and on the **Systems** page, check if the status of the SAP system has changed to **Registered**.
 
 If you are already on the **Systems** page, refresh the page to check if the status has changed.
 
