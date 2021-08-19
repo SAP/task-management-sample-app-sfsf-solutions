@@ -148,27 +148,10 @@ See [Configure the Entitlements for the Subaccount in SAP BTP](https://help.sap.
 
 ### 4. Clone the Task Management Sample Application for SAP SuccessFactors Solutions from GitHub
 
-**version 1**
-
-1. Clone the GitHub repository:
-
-`git clone https://github.wdf.sap.corp/i323283/sfsf-cloud-ext-employee-onboarding`
-
-2. Open a console and navegate to the root folder of the project that is created on you local file system after cloning the GitHub repository.
-
-`cd <root folder of the project>`
-
-3. Build the application. To do so, use the following command:
-
-`mvn clean install`
-
-**version 2**
-
-
 1. Clone the GitHub repository:
 
 ```
-git clone https://github.wdf.sap.corp/i323283/sfsf-cloud-ext-employee-onboarding
+git clone https://github.com/SAP/task-management-sample-app-sfsf-solutions
 ```
 
 2. Configure the details of the SAP SuccessFactors system to which you will connect. To do so, in the root of the project locate the **sap-successfactors-extensibility.json** file and replace the value of the `systemName` parameter with the system name of the system you registered in **Step 1: Connect the SAP SuccessFactors system the corresponding global account in SAP BTP**.
