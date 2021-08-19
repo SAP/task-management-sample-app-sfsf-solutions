@@ -200,25 +200,23 @@ To connect the **task management sample application for SAP SuccessFactors solut
 
 #### cf CLI
 
-1. To log on to the cf CLI, use this command:
+1. Log on to the cf CLI, using this command:
 
-      ```
-      cf login -a <api_endpoint>
-      ```
-  For the `<api_endpoint>`, go to the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the Cloud Foundry section. For example `https://api.cf.eu10.hana.ondemand.com`.
-  
-  where https://api.cf.eu10.hana.ondemand.com is the API endpoint of the subaccount. See [Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/7a37d66c2e7d401db4980db0cd74aa6b.html).
+```
+cf login -a https://api.cf.eu10.hana.ondemand.com
+```
 
-2. To navigate to your space, you have to:
+The string `https://api.cf.eu10.hana.ondemand.com` represents the \<api_endpoint\>. To check it, open the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the **Cloud Foundry** section.
 
- - If you have only one space in your Cloud Foundry Organization, type in the console the number that corresponds to your Org in the list with Orgs that is displayed after you log on to cf CLI. Your space is automatically selected.
- - If you have more than one space in your Cloud Foundry Organization, after you type in the console the number that corresponds to your Org in the list with Orgs that is displayed, you will have to select your space in the same way.
-  
-3. To create the Destination service instance, use this command:
+2. Navigate to your Org by typing in the console the number that corresponds to your Org in the list with Orgs that is displayed after you log on to cf CLI.
 
-      ```
-      cf create-service destination lite destination
-      ```
+3. If you have more than one space, navigate to your space, by typing in the console the number that corresponds to your space in the list with spaces.
+
+>If you have only one space, you will be redirected to it right after you specify your Org.
+
+4. Create the Destination service instance, use this command:
+
+`cf create-service destination lite destination`
 
 ### 6. Create an SAP SuccessFactors Extensibility Service Instance to Consume the SAP SuccessFactors APIs
 
@@ -264,9 +262,23 @@ You can use [**Cockpit**](#cockpit-1) or [**Cloud Foundry Command Line Interface
 
 #### cf CLI
 
+1. Log on to the cf CLI, using this command:
+
 ```
-cf create-service sap-successfactors-extensibility api-access sap-successfactors-extensibility -c sap-successfactors-extensibility.json
+cf login -a https://api.cf.eu10.hana.ondemand.com
 ```
+
+The string `https://api.cf.eu10.hana.ondemand.com` is the \<api_endpoint\>. To check it, open the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the **Cloud Foundry** section.
+
+2. Navigate to your Org by typing in the console the number that corresponds to your Org in the list with Orgs that is displayed after you log on to cf CLI.
+
+3. If you have more than one space, navigate to your space, by typing in the console the number that corresponds to your space in the list with spaces.
+
+>If you have only one space, you will be redirected to it right after you specify your Org.
+
+4. Create the SAP SuccessFactors Extensibility service instance, use this command:
+
+`cf create-service sap-successfactors-extensibility api-access sap-successfactors-extensibility -c sap-successfactors-extensibility.json`
       
 ### 7. Create a Service Instance of the Authorization and Trust Management (XSUAA) Service
 
@@ -300,29 +312,44 @@ To configure the **task management sample application for SAP SuccessFactors sol
 
 #### cf CLI
 
+1. Log on to the cf CLI, using this command:
+
 ```
-cf create-service xsuaa application xsuaa -c xsuaa.json
+cf login -a https://api.cf.eu10.hana.ondemand.com
 ```
+
+The string `https://api.cf.eu10.hana.ondemand.com` represents the \<api_endpoint\>. To check it, open the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the **Cloud Foundry** section.
+
+2. Navigate to your Org by typing in the console the number that corresponds to your Org in the list with Orgs that is displayed after you log on to cf CLI.
+
+3. If you have more than one space, navigate to your space, by typing in the console the number that corresponds to your space in the list with spaces.
+
+>If you have only one space, you will be redirected to it right after you specify your Org.
+
+4. Create the Authorization & Trust Management service instance, use this command:
+
+ `cf create-service xsuaa application xsuaa -c xsuaa.json`
 
 ### 8. Build and Deploy the Application
 
 You have to use **Cloud Foundry Command Line Interface (cf CLI)** to deploy and run the **task management sample application for SAP SuccessFactors solutions**.
 
-1. In the root of the project, locate the `vars.yml` file and replace the values of the following parameters:
+1. Log on to the cf CLI, using this command:
 
- - `ID`
+```cf login -a https://api.cf.eu10.hana.ondemand.com
+```
 
-    Enter your user in SAP BTP. It is either an S-user, a P-user, or a trial user.
+The value `https://api.cf.eu10.hana.ondemand.com` represents the \<api_endpoint\>. To check it, go to the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the **Cloud Foundry** section. See [Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/7a37d66c2e7d401db4980db0cd74aa6b.html).
 
-- `REGION_HOST`
+2. Navigate to your Org by typing in the console the number that corresponds to your Org in the list with Orgs that is displayed after you log on to cf CLI.
 
-    For the `<region_host>`, go to the SAP BTP cockpit, navigate to the subaccount, go to **Overview** and copy the API endpoint from the **Cloud Foundry** section, and remove the `https://api.cf.` For example, `eu10.hana.ondemand.com`.
+3. If you have more than one space, navigate to your space, by typing in the console the number that corresponds to your space in the list with spaces.
 
-2. In the cf CLI push the `vars.yml` file using this command:
+>If you have only one space, you will be redirected to it right after you specify your Org.
 
-      ```
-      cf push --vars-file vars.yml
-      ```
+4. In the cf CLI push the `vars.yml` file using this command:
+
+`cf push --vars-file vars.yml`
 
 ### 9. Configure Single-Sign On Between a Subaccount in SAP BTP and SAP SuccessFactors
 
