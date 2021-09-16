@@ -30,7 +30,7 @@ Files:
     **/*.md
     .gitignore
     approuter/*
-    employee-onboarding-app/*
+    task-management-app/*
     *.png
     *.json
     *.xml
