@@ -1,5 +1,7 @@
 # Task Management Sample Application for SAP SuccessFactors Solutions
 
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/task-management-sample-app-sfsf-solutions)](https://api.reuse.software/info/github.com/SAP/task-management-sample-app-sfsf-solutions)
+
 ## Introduction
 
 You can extend the functionality of your SAP SuccessFactors system with an extension application deployed in a subaccount in SAP Business Technology Platform (SAP BTP) and at the same time fully integrated in your SAP SuccessFactors system.
@@ -456,4 +458,6 @@ Alternatively, copy and paste this URL from **routes** property in a browser fro
 
       cf app approuter-task-management
       
-	
+## Licensing
+
+Copyright 2021 SAP SE or an SAP affiliate company and task-management-sample-app-sfsf-solutions contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/task-management-sample-app-sfsf-solutions).
