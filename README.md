@@ -24,7 +24,7 @@ There are several components and authorizations that you and/or your team member
 
 **Tools**
 
-* [JDK 8](https://www.oracle.com/java/technologies/javase/8all-relnotes.html) or later
+* [JDK 8](https://www.oracle.com/java/technologies/javase/8all-relnotes.html) or later versions up to JDK 15
 * [Maven 3.0.x](http://maven.apache.org/docs/3.0.5/release-notes.html) or later
 * [Cloud Foundry Command Line Interface (cf CLI)](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/4ef907afb1254e8286882a2bdef0edf4.html?q=cf%20CLI)
 * [git](https://git-scm.com/download/)
