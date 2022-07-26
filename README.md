@@ -79,35 +79,17 @@ To do that, you must register your SAP SuccessFactors system in your global acco
     
 6. Configure the integration on the SAP SuccessFactors system side:
 
-	* For SAP SuccessFactors, First Half 2021 Release:
+	1. In **SAP SuccessFactors Admin Center**, navigate to **Extension Center**.
 
-		1. Open SAP SuccessFactors Provisioning.
+	>If you do not have permissions to access the Extension Center for the corresponding SAP SuccessFactors system, you need to send the integration token to a user with such permissions who will configure the integration on the SAP SuccessFactors system side.
 
-		2. In the **List of Companies**, choose your SAP SuccessFactors company.
+	2. On the **Extensions on SAP BTP** tab page, navigate to the **Add Integration with SAP BTP** screen area, and paste the integration token in the **Integration Token** input field.
 
-		3. In the **Edit Company Settings** section, choose **Extension Management Configuration**.
+   	![In the **Integration Token** input field, paste the integration token.](screenshots.png/4-systems-view-new.png)
 
-		4. In the **Integration Token** input field, paste the integration token.
+	3. Choose **Add**.
 
-		![In the **Integration Token** input field, paste the integration token.](screenshots.png/4-systems-view.png)
-		
-		5. Choose **Add**.
-
-    		Wait for the integration to finish. You can check the status of the process with the **Check Status** button next to your system name.
-
-	* For SAP SuccessFactors, Second Half 2021 Release or later:
-
-		1. In **SAP SuccessFactors Admin Center**, navigate to **Extension Center**.
-
-		>If you do not have permissions to access the Extension Center for the corresponding SAP SuccessFactors system, you need to send the integration token to a user with such permissions who will configure the integration on the SAP SuccessFactors system side.
-
-		2. On the **Extensions on SAP BTP** tab page, navigate to the **Add Integration with SAP BTP** screen area, and paste the integration token in the **Integration Token** input field.
-
-   		![In the **Integration Token** input field, paste the integration token.](screenshots.png/4-systems-view-new.png)
-
-		3. Choose **Add**.
-
-		>The system appears in the integration list in the Multi-Cloud Environment screen area, and the status of the integration is displayed in the Integration Status column. To refresh the status of the process, choose the Check Status icon. Wait for the integration to finish.
+	>The system appears in the integration list in the Multi-Cloud Environment screen area, and the status of the integration is displayed in the Integration Status column. To refresh the status of the process, choose the Check Status icon. Wait for the integration to finish.
 
 11. In the SAP BTP cockpit, check the status of the registration process. To do so, navigate to your global account, and on the **Systems** page, check if the status of the SAP system has changed to **Registered**.
 
