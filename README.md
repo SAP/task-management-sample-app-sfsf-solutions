@@ -121,9 +121,7 @@ You need to configure the entitlements for the subaccount where the **task manag
 
 ![Choose **Add Service Plans**, and then select the **SAP SuccessFactors Extensibility** service.](screenshots.png/8-entitle-sfsf-ext.png)
 
-6. In the **Available Service Plans** area, select the system you have registered and the **api-access** service plan, and then choose **Add Service Plan**.
-
-![Select the system you have registered and the **api-access** service plan, and then choose **Add Service Plan**.](screenshots.png/9-entitle-sfsf-ext.png)
+6. In the **Available Service Plans** area, select the system you have registered. Then, select **api-access** and **sso-configuration** service plans, and choose **Add 2 Service Plans**.
 
 7. Save the changes. 
 
@@ -358,7 +356,7 @@ The value `https://api.cf.eu10.hana.ondemand.com` represents the \<api_endpoint\
 
 To ensure the required security for accessing the applications, you need to configure the single sign-on between the subaccount in SAP BTP and the SAP SuccessFactors system using a SAML identity provider. The single sign-on requires both solutions to be configured as trusted SAML service providers for the identity provider, and at the same time, the identity provider to be configured as trusted identity provider for the two solutions.
 
-#### 9.1. Establish trust between an SAP SuccessFactors system and a subaccount in SAP BTP. 
+#### 9.1. Establish trust between an SAP SuccessFactors system and a subaccount in SAP BTP.
 
 1. Download SAML metadata from the SAP SuccessFactors system.
 
@@ -393,59 +391,37 @@ To ensure the required security for accessing the applications, you need to conf
 	
 See [Establish Trust Between SAP SuccessFactors and SAP BTP](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/80a3fd16d144454fbe08377d284e3c37.html).
 
-#### 9.2. Register the Assertion Consumer Service of the subaccount in SAP SuccessFactors. 
+#### 9.2. Configure the subaccount as a trusted service provider in SAP SuccessFactors.
 
-1. Download the service provider SAML metadata file from the SAP BTP cockpit.
-	
-	1. Go to your subaccount and choose **Security** > **Trust Configuration**.
-		
-	2. Choose **SAML Metadata** to download an XML file that contains the SAML 2.0 metadata describing SAP BTP as a service provider.
-	
-	![Choose **SAML Metadata** to download an XML file that contains the SAML 2.0 metadata describing SAP BTP as a service provider.](screenshots.png/22-new-trust-config.png)
-		
-	3. Open the XML file in a text editor and copy the following values:
-		
-	- The value of the `Location` attribute of the `AssertionConsumerService` element with the HTTP-POST binding of the XML file: this is the value of the Assertion Consumer Service.
-	
-	![Copy the value of the `Location` attribute of the `AssertionConsumerService` element with the HTTP-POST binding of the XML file.](screenshots.png/23-acs.png)
-			
-	- The value of the `Location` attribute of the `SingleLogoutService` element with the HTTP-POST binding of the XML file: this is the value of the logout URL.
-	
-	![Copy he value of the `Location` attribute of the `SingleLogoutService` element with the HTTP-POST binding of the XML file.](screenshots.png/24-acs.png)
-			
-	- The value of the `EntityID` attribute of `EntityDescriptor` element of the XML file: this is the value of the Audience URL.
-	
-	![Copy the value of the `EntityID` attribute of `EntityDescriptor` element of the XML file.](screenshots.png/25-acs.png)
-			
-2. In Provisioning of SAP SuccessFactors, go to your company and choose **Authorized SP Assertion Consumer Service Settings** under the **Service Provider Settings** section.
-	
-3. Choose **Add another Service Provider ACS** and fill in the following fields:
+To configure the subaccount as a trusted service provider in SAP SuccessFactors, you have to create an **SAP SuccessFactors Extensibility** service instance using the **sso-configuration** service plan.
 
-	- `Assertion Consumer Service` field
-		
-	The assertion consumer service URL
+1. In the SAP BTP cockpit, navigate to the subaccount which you want to configure as a trusted service provider in SAP SuccessFactors.
 
-	This is the value of the `Location` attribute of the `AssertionConsumerService` element with the HTTP-POST binding you copied in step 1.
+2. In the navigation area, choose **Services** > **Service Marketplace**, and on the **Service Marketplace** screen, search for the **SAP SuccessFactors Extensibility** service.
 
-	- `Logout URL` fields
-		
-	The logout URL
+3. In the **SAP SuccessFactors Extensibility** page, choose **Create**.
 
-	This is the value of the `Location` attribute of the `SingleLogoutService` element with the HTTP-POST binding you copied in step 1.
-		
-	- `Audience Url` field
-		
-	The audience URL
+4. In the **New Instance or Subscription** wizard:
 
-	This is the value of the `EntityID` attribute of `EntityDescriptor` element you copied in step 1
-		
-	- `Application Name` field
+	* In the **Service** dropdown list, ensure you have selected the **SAP SuccessFactors Extensibility** service.
+	* In the **Plan** dropdown list, select the **sso-configuration** service plan.
+	* In the **Runtime Environment** dropdown list, select **Other**.
+	* In the **Instance Name** field, enter a name for your instance, for example **sso-to-successfactors**. Choose **Next**.
+	* To configure the assertion consumer service of the subaccount, specify the system name in the JSON file:
 	
-	Select `SAP Business Technology Platform` from the dropdown menu.
+		`
+		{"systemName": "my-sap-successfactors-system"}
+		`
 	
-	![Choose **Add another Service Provider ACS** and fill in the fields.](screenshots.png/26-acs.png)
+	For more information about the structure of the JSON file, see [Single Sign-On Configuration JSON File](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/5ec1e970eb0d417c969f1693da31388f.html).
+
+5. Choose **Next**.
+
+6. Choose **Create**.
+
+You have an assertion consumer service for the subaccount created in SAP SuccessFactors and have the SSO between your subaccount in SAP BTP and your SAP SuccessFactors system.
 		
-See [Register the Assertion Consumer Service of the Subaccount in SAP BTP in SAP SuccessFactors](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/de3a1b3d12fb449e9ff0a528db6ae4b4.html).
+See [Configure the Subaccount as a Trusted Service Provider in SAP SuccessFactors](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/9efe2a1d84c2458fb7b68d4df1bd13ee.html).
 
 
 ### 10. Test the Application
